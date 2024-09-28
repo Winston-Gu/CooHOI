@@ -11,6 +11,10 @@ Official Implementation of the paper "CooHOI: Learning Cooperative Human-Object 
 
 We will release the code no later than end of October, 2024.
 
+## News
+
+- 09/25/2024: :tada: CooHOI is accepted as NeurIPS 2024 **spotlight**. Thanks for the recognition!
+
 ## BibTex
 
 ```bibtex
