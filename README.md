@@ -4,6 +4,8 @@
 [[Website]](https://gao-jiawei.com/Research/CooHOI/)
 [[Arxiv]](https://arxiv.org/abs/2406.14558)
 
+</div>
+
 Official Implementation of the paper "CooHOI: Learning Cooperative Human-Object Interaction with Manipulated Object Dynamics".
 
 We will release the code no later than end of October, 2024.
