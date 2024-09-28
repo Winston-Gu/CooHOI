@@ -1,6 +1,7 @@
 # CooHOI: Learning Cooperative Human-Object Interaction with Manipulated Object Dynamics
 
 <div align="center">
+
 [[Website]](https://gao-jiawei.com/Research/CooHOI/)
 [[Arxiv]](https://arxiv.org/abs/2406.14558)
 
