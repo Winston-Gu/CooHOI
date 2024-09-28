@@ -7,6 +7,11 @@
 
 </div>
 
+
+<div style="text-align: center;">
+    <img src="assets/CooHOI.png" alt="Teaser" width=100% >
+</div>
+
 Official Implementation of the paper "CooHOI: Learning Cooperative Human-Object Interaction with Manipulated Object Dynamics".
 
 We will release the code no later than end of October, 2024.
