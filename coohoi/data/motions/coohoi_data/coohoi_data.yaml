@@ -1,0 +1,79 @@
+motions:
+  # - file: "loco/ACCAD_Female1Walking_c3d_B1_-_stand_to_walk_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B2_-_walk_to_stand_t2_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B3_-_walk1_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B9_-_walk_turn_left_(90)_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B10_-_walk_turn_left_(45)_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B10_-_walk_turn_left_(45)_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B12_-_walk_turn_right_(90)_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B13_-_walk_turn_right_(45)_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B14_-_walk_turn_right_(135)_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B15_-_walk_turn_around_(same_direction)_stageii.npy"
+  #   weight: 1
+  # - file: "loco/ACCAD_Female1Walking_c3d_B16_-_walk_turn_change_direction_stageii.npy"
+    # weight: 1
+  - file: "loco/ACCAD_Male1Walking_c3d_Walk_B10_-_Walk_turn_left_45_stageii.npy"
+    weight: 1
+  - file: "loco/ACCAD_Male1Walking_c3d_Walk_B13_-_Walk_turn_right_45_stageii.npy"
+    weight: 1
+  - file: "loco/ACCAD_Male1Walking_c3d_Walk_B15_-_Walk_turn_around_stageii.npy"
+    weight: 1
+  - file: "loco/ACCAD_Male1Walking_c3d_Walk_B16_-_Walk_turn_change_stageii.npy"
+    weight: 1
+  - file: "loco/ACCAD_Male2Walking_c3d_B9_-__Walk_turn_left_90_stageii.npy"
+    weight: 1
+  - file: "loco/ACCAD_Male2Walking_c3d_B10_-__Walk_turn_left_45_stageii.npy"
+    weight: 1
+  - file: "loco/ACCAD_Male2Walking_c3d_B11_-__Walk_turn_left_135_stageii.npy"
+    weight: 1
+  - file: "loco/ACCAD_Male2Walking_c3d_B13_-__Walk_turn_right_90_stageii.npy"
+    weight: 1
+  - file: "loco/ACCAD_Male2Walking_c3d_B15_-__Walk_turn_around_stageii.npy"
+    weight: 1
+  # sidewalk
+  - file: "sidewalk/cmu_sidewalk_113_18_poses.npy"
+    weight: 1
+  - file: "sidewalk/cmu_sidewalk_141_33_poses.npy"
+    weight: 1
+  - file: "sidewalk/cmu_sidewalk_143_40_poses.npy"
+    weight: 1
+  # pickup
+  - file: "pickup/ACCAD_Female1General_c3d_A5_-_pick_up_box_stageii.npy"
+    weight: 1.5
+  - file: "pickup/ACCAD_Female1Walking_c3d_B19_-_walk_to_pick_up_box_stageii.npy"
+    weight: 1.5
+  - file: "pickup/ACCAD_Male1General_c3d_General_A5_-_Pick_Up_Box_stageii.npy"
+    weight: 1.5
+  - file: "pickup/ACCAD_Male2General_c3d_A5-_Pick_up_box_stageii.npy"
+    weight: 1.5
+  - file: "pickup/ACCAD_Male2Walking_c3d_B19_-__Walk_to_pickup_box_stageii.npy"
+    weight: 1.5
+  # carry
+  - file: "carry/ACCAD_Female1Walking_c3d_B20_-_walk_with_box_stageii.npy"
+    weight: 1.5
+  - file: "carry/ACCAD_Male2Walking_c3d_B20_-_Walk_with_box_stageii.npy"
+    weight: 1.5
+  - file: "carry_reverse/ACCAD_Female1Walking_c3d_B20_-_walk_with_box_stageii.npy"
+    weight: 1.5
+  - file: "carry_reverse/ACCAD_Male2Walking_c3d_B20_-_Walk_with_box_stageii.npy"
+    weight: 1.5
+  # putdown
+  - file: "putdown/ACCAD_Female1Walking_c3d_B21_-_put_down_box_to_walk_stageii.npy"
+    weight: 1
+  - file: "putdown/ACCAD_Female1Walking_c3d_B21_s2_-_put_down_box_to_walk_stageii.npy"
+    weight: 1
+  - file: "putdown/ACCAD_Male1Walking_c3d_Walk_B21_-_Put_Down_Box_to_walk_stageii.npy"
+    weight: 1
+  - file: "putdown/ACCAD_Male2Walking_c3d_B21_-__put_down_box_to_walk_a_stageii.npy"
+    weight: 1
+  - file: "putdown/ACCAD_Male2Walking_c3d_B21_-__put_down_box_to_walk_stageii.npy"
+    weight: 1

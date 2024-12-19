@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot name="object">
+  <link name="object">
+     <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+        <mesh filename="box.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+      <material>
+        <color rgba="1.0 1.0 1.0 1"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 -0.005" rpy="0 0 0"/>
+     <geometry>
+        <mesh filename="box.obj" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="5"/>
+    </inertial>
+  </link>
+</robot>
