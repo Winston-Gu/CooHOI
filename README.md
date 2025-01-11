@@ -123,9 +123,7 @@ CUDA_VISIBLE_DEVICES=0 python coohoi/run.py --test \
 
 ### Two Humanoids Cooperation Training
 
-By default, the two humanoids cooperation training starts from finetuning single humanoid policy. We load the single agent policy checkpoint in `coohoi/data/cfg/train/share_humanoid_task_coohoi.yaml`, the key is `is_finetune: True` and `from_pretrain: coohoi/data/models/SingleAgent.pth`. You can change this to your own checkpoint.
-    
-
+By default, the two humanoids cooperation training starts from finetuning single humanoid policy. We load the single agent policy checkpoint in `--checkpoint <ckpt_path>`, and you can change this to your own checkpoint.
 
 Cooperation Training:
 
@@ -136,6 +134,7 @@ CUDA_VISIBLE_DEVICES=0 python coohoi/run.py \
 --cfg_train coohoi/data/cfg/train/share_humanoid_task_coohoi.yaml \
 --motion_file coohoi/data/motions/coohoi_data/coohoi_data.yaml \
 --headless \
+--checkpoint <ckpt_path> \
 --wandb_name "<experiement_name>"
 ```
 

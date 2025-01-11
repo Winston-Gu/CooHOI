@@ -754,7 +754,7 @@ def compute_carrybox_observations(root_states, box_states, tar_pos, tar_rot, box
     obs = torch.cat([local_tar_pos_obs, local_tar_rot_obs, obs], dim=-1)
     obs = torch.cat([tar_local_lfus_pos, tar_local_lfds_pos, tar_local_lbus_pos, tar_local_lbds_pos,
                     tar_local_rfus_pos, tar_local_rfds_pos, tar_local_rbus_pos, tar_local_rbds_pos, obs], dim=-1)
-    obs = torch.cat([torch.unsqueeze(density, -1), obs], dim=-1)
+    # obs = torch.cat([torch.unsqueeze(density, -1), obs], dim=-1)
     # Do not use standing points for targets
     # obs = torch.cat(local_tar_standing_points_pos, obs)
 
