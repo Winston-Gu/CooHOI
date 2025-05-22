@@ -146,6 +146,11 @@ def load_cfg(args):
 
     cfg["args"] = args
 
+    # Configs for finetuning mode
+    cfg_train["is_finetune"] = args.is_finetune
+    if args.is_finetune:
+        cfg_train["pretrain_checkpoint"] = args.pretrain_checkpoint
+
     return cfg, cfg_train, logdir
 
 
@@ -236,7 +241,11 @@ def get_args(benchmark=False):
         {"name": "--llc_checkpoint", "type": str, "default": "",
             "help": "Path to the saved weights for the low-level controller of an HRL agent."},
         {"name": "--save_for_blender", "action": "store_true", "default": False,
-            "help": "Whether to save motions for Blender"},]
+            "help": "Whether to save motions for Blender"},
+        {"name": "--is_finetune", "action": "store_true", "default": False,
+            "help": "Whether to run in finetuning mode"},
+        {"name": "--pretrain_checkpoint", "type": str, "default": "",
+            "help": "Path to the saved weights for the pretraining model."},]
 
     if benchmark:
         custom_parameters += [{"name": "--num_proc", "type": int, "default": 1, "help": "Number of child processes to launch"},

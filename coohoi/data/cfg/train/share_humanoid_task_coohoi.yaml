@@ -95,5 +95,3 @@ params:
     record_sep_reward: True
 
     num_humanoids: 2
-    is_finetune: True
-    from_pretrain: coohoi/data/models/SingleAgent.pth

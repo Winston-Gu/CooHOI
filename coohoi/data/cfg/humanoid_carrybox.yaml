@@ -25,7 +25,6 @@ env:
   enable_task_update: False
   tarChangeStepsMin: 50
   tarChangeStepsMax: 200
-  LogSuccess: False
   
   asset:
     assetRoot: "coohoi/data/assets"

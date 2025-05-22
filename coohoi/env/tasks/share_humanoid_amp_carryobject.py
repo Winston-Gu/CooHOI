@@ -175,6 +175,8 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
         asset_options.density = 50.0
         self._box_asset = self.gym.create_box(
             self.sim, length_box_size, width_box_size, width_box_size, asset_options)
+        self.asset_density = torch.zeros(self.num_envs).to(self.device)
+        self.asset_density[:] = asset_options.density
         return
 
     def _build_env(self, env_id, env_ptr, humanoid_asset):
@@ -439,6 +441,7 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
             obs_target_rotation_states = quat_mul(
                 self._target_rot, self.obs_target_rotation)
             box_states = self._box_states
+            density = self.asset_density
             # tar_standing_points = self.tar_standing_points
         else:
             root_states = self._humanoid_root_states[env_ids]
@@ -462,18 +465,20 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
                 self._box_states[env_ids, 3:7], self.obs_box_rotation[env_ids])
             obs_target_rotation_states = quat_mul(
                 self._target_rot[env_ids], self.obs_target_rotation[env_ids])
+            density = self.asset_density[env_ids]
             # tar_standing_points = self.tar_standing_points[env_ids]
 
         obs = compute_carrybox_observations(
             root_states, box_states, tar_pos, tar_rot, box_bps, box_standing_points,
-            box_held_points, tar_held_points, obs_box_rotation_states, obs_target_rotation_states)
+            box_held_points, tar_held_points, obs_box_rotation_states, obs_target_rotation_states,
+            density)
         return obs
 
     def get_task_obs_size(self):
         obs_size = 0
         if (self._enable_task_obs):
-            # TODO fix the function get_task_obs_size and compute_task_obs
-            obs_size = 75
+            # the original was 75, add 1 dimension for the density of the box
+            obs_size = 76
         return obs_size
 
     def _compute_reset(self):
@@ -681,7 +686,10 @@ def convert_static_point_to_world(point_pos, central_pos, central_rot):
 
 
 # @torch.jit.script
-def compute_carrybox_observations(root_states, box_states, tar_pos, tar_rot, box_bps, box_standing_points, box_held_points, tar_held_points, obs_box_rotation_states, obs_target_rotation_states):
+def compute_carrybox_observations(root_states, box_states, tar_pos, tar_rot, 
+                                  box_bps, box_standing_points, box_held_points, 
+                                  tar_held_points, obs_box_rotation_states, obs_target_rotation_states,
+                                  density):
 
     root_pos = root_states[:, 0:3]
     root_rot = root_states[:, 3:7]
@@ -773,6 +781,8 @@ def compute_carrybox_observations(root_states, box_states, tar_pos, tar_rot, box
     obs = torch.cat([local_tar_pos_obs, local_tar_rot_obs, obs], dim=-1)
     obs = torch.cat([tar_local_lfus_pos, tar_local_lfds_pos, tar_local_lbus_pos, tar_local_lbds_pos,
                     tar_local_rfus_pos, tar_local_rfds_pos, tar_local_rbus_pos, tar_local_rbds_pos, obs], dim=-1)
+    
+    obs = torch.cat([torch.unsqueeze(density, -1), obs], dim=-1)
 
     return obs
 
