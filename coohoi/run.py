@@ -19,6 +19,8 @@ from learning import amp_players
 from learning import amp_models
 from learning import amp_network_builder
 
+from loguru import logger
+
 args = None
 cfg = None
 cfg_train = None
@@ -195,15 +197,20 @@ def main():
     # Create default directories for weights and statistics
     cfg_train['params']['config']['train_dir'] = args.output_path
 
-    wandb.init(project="CooHOI", name=args.wandb_name)
-    wandb.config.cfg_env = args.cfg_env
-    wandb.config.cfg_train = args.cfg_train
-    wandb.config.checkpoint = args.checkpoint
-    wandb.config.motion_file = args.motion_file
-    wandb.config.num_envs = args.num_envs
-    wandb.config.wandb_name = args.wandb_name
-    wandb.config.output_path = args.output_path
-    wandb.config.task = args.task
+    if args.wandb:
+        wandb.init(project="CooHOI", name=args.wandb_name)
+        wandb.config.cfg_env = args.cfg_env
+        wandb.config.cfg_train = args.cfg_train
+        wandb.config.checkpoint = args.checkpoint
+        wandb.config.motion_file = args.motion_file
+        wandb.config.num_envs = args.num_envs
+        wandb.config.wandb_name = args.wandb_name
+        wandb.config.output_path = args.output_path
+        wandb.config.task = args.task
+
+        logger.info("Wandb is enabled")
+    else:
+        logger.info("Wandb is disabled")
 
     vargs = vars(args)
 

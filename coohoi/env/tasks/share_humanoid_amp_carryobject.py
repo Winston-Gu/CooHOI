@@ -17,7 +17,7 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
         # TODO: reduced randomness
         self._box_dist_max = 2.0
         self._target_dist_min = 1.5
-        self._target_dist_max = 10.0
+        self._target_dist_max = 4.0
 
         self._box_min_scale = 0.9
         self._box_max_scale = 1.0
@@ -208,7 +208,7 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
         box_handle = self.gym.create_actor(
             env_ptr, self._box_asset, default_pose, "box", col_group, col_filter, segmentation_id)
         props = self.gym.get_actor_dof_properties(env_ptr, box_handle)
-        props['friction'].fill(5.0)
+        props['friction'].fill(10.0)
         self.gym.set_actor_dof_properties(env_ptr, box_handle, props)
         self.gym.set_actor_scale(env_ptr, box_handle, scaling_factor)
         self._box_handles.append(box_handle)
@@ -279,8 +279,11 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
                 [n], dtype=self._box_states.dtype, device=self._box_states.device) + self._box_dist_min
             random_numbers = torch.rand(
                 [n], dtype=self._box_states.dtype, device=self._box_states.device)
+            random_numbers_rot = torch.rand(
+                [n], dtype=self._box_states.dtype, device=self._box_states.device)
 
             rand_theta = 2 * np.pi * random_numbers
+            rand_rot_theta = 0.25 * np.pi * (random_numbers_rot - 0.5)
             # rand_theta = (random_numbers - 0.5) * np.pi / 2.0
             # set middle point, make the box in the middle of the two humanoid
             # suppose the env spacing is 5
@@ -295,7 +298,7 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
             self._box_states[env_ids, 2] = 0.6
             # rand_rot_theta = 2 * np.pi * random_numbers
             # TODO:reduced randomness
-            rand_rot_theta = 0.25 * np.pi * random_numbers
+            # rand_rot_theta = 0.25 * np.pi * random_numbers
             axis = torch.tensor(
                 [0.0, 0.0, 1.0], dtype=self._box_states.dtype, device=self._box_states.device)
             rand_rot = quat_from_angle_axis(rand_rot_theta, axis)
@@ -317,15 +320,16 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
     def _reset_target(self, env_ids, randomize=True):
 
         n = len(env_ids)
-        # if self._enable_dynamic_marker:
-        #     self._marker_change_time[env_ids] = 0
         if randomize:
             rand_dist = (self._target_dist_max - self._target_dist_min) * torch.rand(
                 [n], dtype=self._target_pos.dtype, device=self._target_pos.device) + self._target_dist_min
             random_numbers = torch.rand(
                 [n], dtype=self._target_pos.dtype, device=self._target_pos.device)
+            random_numbers_rot = torch.rand(
+                [n], dtype=self._target_pos.dtype, device=self._target_pos.device)
 
             rand_theta = 2 * np.pi * random_numbers
+            rand_rot_theta = 0.25 * np.pi * (random_numbers_rot - 0.5)
 
             self._target_pos[env_ids, 0] = rand_dist * \
                 torch.cos(rand_theta) + self._box_states[env_ids, 0]
@@ -333,16 +337,18 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
                 torch.sin(rand_theta) + self._box_states[env_ids, 1]
             self._target_pos[env_ids, 2] = self._width_box_size[env_ids] / 2.0
             # self._target_pos[env_ids, 2] = 0
-            rand_rot_theta = 2 * np.pi * random_numbers
+            # rand_rot_theta = 2 * np.pi * random_numbers
             axis = torch.tensor(
                 [0.0, 0.0, 1.0], dtype=self._target_pos.dtype, device=self._target_pos.device)
             rand_rot = quat_from_angle_axis(rand_rot_theta, axis)
             self._target_rot[env_ids] = rand_rot
 
-            # self._new_marker_states = self._marker_states.clone()
-
         else:
-            pass
+            target_box_offset = torch.tensor([1.0, 1.0], dtype=self._target_pos.dtype, device=self._target_pos.device)
+            self._target_pos[env_ids, 0:2] = self._box_states[env_ids, 0:2] + target_box_offset
+            self._target_pos[env_ids, 2] = self._width_box_size[env_ids] / 2.0
+            self._target_rot[env_ids] = torch.tensor([0.0, 0.0, 0.0, 1.0], dtype=self._target_pos.dtype, device=self._target_pos.device)
+
         return
 
     def _reset_env_tensors(self, env_ids):
@@ -441,7 +447,7 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
             obs_target_rotation_states = quat_mul(
                 self._target_rot, self.obs_target_rotation)
             box_states = self._box_states
-            density = self.asset_density
+            density = self.asset_density * 2
             # tar_standing_points = self.tar_standing_points
         else:
             root_states = self._humanoid_root_states[env_ids]
@@ -465,7 +471,7 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
                 self._box_states[env_ids, 3:7], self.obs_box_rotation[env_ids])
             obs_target_rotation_states = quat_mul(
                 self._target_rot[env_ids], self.obs_target_rotation[env_ids])
-            density = self.asset_density[env_ids]
+            density = self.asset_density[env_ids] * 2
             # tar_standing_points = self.tar_standing_points[env_ids]
 
         obs = compute_carrybox_observations(
@@ -498,11 +504,11 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
 
     def _compute_reward(self, actions):
         walk_pos_reward_w = 0.1
-        walk_vel_reward_w = 0.1
+        walk_vel_reward_w = 0.0
         walk_face_reward_w = 0.1
-        held_hand_reward_w = 0.4
-        held_height_reward_w = 0.0
-        carry_box_reward_pos_far_w = 0.1
+        held_hand_reward_w = 0.3
+        held_height_reward_w = 0.1
+        carry_box_reward_pos_far_w = 0.3
         carry_box_reward_velocity_w = 0.0
         carry_box_reward_pos_near_w = 0.2
         carry_box_face_reward_w = 0.0
@@ -548,39 +554,41 @@ class ShareHumanoidCarryObject(share_humanoid_amp_task.ShareHumanoidAMPTask):
             carry_box_dir_reward_w * carry_box_dir_reward + \
             putdown_reward_w * put_down_height_reward
 
-        box_half_size = self._width_box_size / 2.0
-        height_diff = compute_box_raise_height(box_half_size, box_height)
+        # box_half_size = self._width_box_size / 2.0
+        # height_diff = compute_box_raise_height(box_half_size, box_height)
 
-        walk_reward = walk_pos_reward_w * walk_pos_reward + \
-            walk_vel_reward_w * walk_vel_reward + \
-            walk_face_reward_w * walk_face_reward
-        contact_reward = held_hand_reward_w * held_hand_reward
-        carry_reward = carry_box_reward_pos_far_w * carry_box_reward_pos_far + \
-            carry_box_reward_velocity_w * carry_box_reward_velocity + \
-            carry_box_reward_pos_near_w * carry_box_reward_pos_near + \
-            carry_box_face_reward_w * carry_box_face_reward + \
-            carry_box_dir_reward_w * carry_box_dir_reward + \
-            putdown_reward_w * put_down_height_reward
+        # walk_reward = walk_pos_reward_w * walk_pos_reward + \
+        #     walk_vel_reward_w * walk_vel_reward + \
+        #     walk_face_reward_w * walk_face_reward
+        # contact_reward = held_hand_reward_w * held_hand_reward
+        # carry_reward = carry_box_reward_pos_far_w * carry_box_reward_pos_far + \
+        #     carry_box_reward_velocity_w * carry_box_reward_velocity + \
+        #     carry_box_reward_pos_near_w * carry_box_reward_pos_near + \
+        #     carry_box_face_reward_w * carry_box_face_reward + \
+        #     carry_box_dir_reward_w * carry_box_dir_reward + \
+        #     putdown_reward_w * put_down_height_reward
 
-        if self._enable_task_update:
-            finish_task_mask = compute_task_finish(box_pos, tar_pos, 0.3)
-            self._task_finish_steps[finish_task_mask] += 1
+        # if self._enable_task_update:
+        #     finish_task_mask = compute_task_finish(box_pos, tar_pos, 0.3)
+        #     self._task_finish_steps[finish_task_mask] += 1
         return
 
-    def _update_task(self):
-        if self._enable_task_update:
-            change_steps = torch.randint(low=self._task_finish_steps_min, high=self._task_finish_steps_max, size=(
-                self.num_envs,), device=self.device, dtype=torch.int64)
-            reset_task_mask = self._task_finish_steps > change_steps
-            rest_env_ids = reset_task_mask.nonzero(as_tuple=False).flatten()
+    # def _update_task(self):
+    #     if self._enable_task_update:
+    #         change_steps = torch.randint(low=self._task_finish_steps_min, high=self._task_finish_steps_max, size=(
+    #             self.num_envs,), device=self.device, dtype=torch.int64)
+    #         reset_task_mask = self._task_finish_steps > change_steps
+    #         rest_env_ids = reset_task_mask.nonzero(as_tuple=False).flatten()
 
-            if len(rest_env_ids) > 0:
-                self._reset_task(rest_env_ids)
-        return
+    #         import icecream; icecream.ic(self._enable_task_update)
+
+    #         if len(rest_env_ids) > 0:
+    #             self._reset_task(rest_env_ids)
+    #     return
 
     def _reset_task(self, env_ids):
-        self._reset_target(env_ids, randomize=True)
-        self._task_finish_steps[env_ids] = 0
+        # self._reset_target(env_ids, randomize=False)
+        # self._task_finish_steps[env_ids] = 0
         return
 
     def _draw_task(self):
@@ -945,7 +953,7 @@ def compute_contact_reward(hand_positions, box_held_points, root_pos, box_standi
 
 @torch.jit.script
 def compute_height_reward(held_point_height):
-    target_height = 0.8
+    target_height = 0.6
     height_err_scale = 10.0
     box_height_diff = target_height - held_point_height
     height_reward = torch.exp(

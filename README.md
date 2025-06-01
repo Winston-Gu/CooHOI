@@ -20,6 +20,7 @@ Official Implementation of the paper "CooHOI: Learning Cooperative Human-Object 
 - 09/25/2024: :tada: CooHOI is accepted as NeurIPS 2024 **spotlight**. Thanks for the recognition!
 - 12/12/2024: :sparkles: Presented CooHOI at NeurIPS 2024, Vancouver. Check out our [poster](https://x.com/WinstonGu_/status/1866967711877636310).
 - 12/19/2024: :tada: Code open-sourced!
+- 06/01/2025: :art: Fixed some bugs mentioned by Issues. Uploaded training curve plots FYI.
 
 
 ## Installation
@@ -57,6 +58,12 @@ export LD_LIBRARY_PATH=/path/to/conda/envs/your_env/lib
 
 ## Commands
 
+Typical reward curves during training should be like this:
+
+<div style="text-align: center;">
+    <img src="assets/RewardCurves.png" alt="Reward Curves" width=100% >
+</div>
+
 ### Reproduce Results for our Paper
 
 To see our results on single agent object carrying tasks:
@@ -64,7 +71,7 @@ To see our results on single agent object carrying tasks:
 ```bash
 CUDA_VISIBLE_DEVICES=0 python coohoi/run.py --test \
 --task HumanoidAMPCarryObject \
---num_envs 1 \
+--num_envs 16 \
 --cfg_env coohoi/data/cfg/humanoid_carrybox.yaml \
 --cfg_train coohoi/data/cfg/train/amp_humanoid_task.yaml \
 --motion_file coohoi/data/motions/coohoi_data/coohoi_data.yaml \
@@ -76,7 +83,7 @@ To see our results on 2 agent object carrying tasks:
 ```bash
 CUDA_VISIBLE_DEVICES=0 python coohoi/run.py --test \
 --task ShareHumanoidCarryObject \
---num_envs 4 \
+--num_envs 16 \
 --cfg_env coohoi/data/cfg/share_humanoid_carrybox.yaml \
 --cfg_train coohoi/data/cfg/train/share_humanoid_task_coohoi.yaml \
 --motion_file coohoi/data/motions/coohoi_data/coohoi_data.yaml \
@@ -134,8 +141,27 @@ CUDA_VISIBLE_DEVICES=0 python coohoi/run.py \
 --cfg_train coohoi/data/cfg/train/share_humanoid_task_coohoi.yaml \
 --motion_file coohoi/data/motions/coohoi_data/coohoi_data.yaml \
 --headless \
---checkpoint <ckpt_path> \
+--is_finetune \
+--pretrain_checkpoint <ckpt_path> \
+--wandb \
 --wandb_name "<experiement_name>"
+```
+
+> Note: <ckpt_path> should be the relative path of single agent policy checkpoint. This policy checkpoint will be used for initializing cooperation policy.
+
+e.g.,
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python coohoi/run.py \
+--task ShareHumanoidCarryObject \
+--cfg_env coohoi/data/cfg/share_humanoid_carrybox.yaml \
+--cfg_train coohoi/data/cfg/train/share_humanoid_task_coohoi.yaml \
+--motion_file coohoi/data/motions/coohoi_data/coohoi_data.yaml \
+--headless \
+--is_finetune \
+--pretrain_checkpoint coohoi/data/models/SingleAgent.pth \
+--wandb \
+--wandb_name "CooHOI Training"
 ```
 
 Evaluation:
@@ -143,7 +169,7 @@ Evaluation:
 ```bash
 CUDA_VISIBLE_DEVICES=0 python coohoi/run.py --test \
 --task ShareHumanoidCarryObject \
---num_envs 4 \
+--num_envs 16 \
 --cfg_env coohoi/data/cfg/share_humanoid_carrybox.yaml \
 --cfg_train coohoi/data/cfg/train/share_humanoid_task_coohoi.yaml \
 --motion_file coohoi/data/motions/coohoi_data/coohoi_data.yaml \

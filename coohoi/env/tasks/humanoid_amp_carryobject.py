@@ -256,8 +256,8 @@ class HumanoidAMPCarryObject(humanoid_amp_task.HumanoidAMPTask):
             self._reset_box(env_ids, randomize=True)
             self._reset_target(env_ids, randomize=True)
         else:
-            self._reset_box(env_ids, randomize=False)
-            self._reset_target(env_ids, randomize=False)
+            self._reset_box(env_ids, randomize=True)
+            self._reset_target(env_ids, randomize=True)
         # self._reset_platform(env_ids, randomize=True)
         return
 

@@ -147,9 +147,9 @@ def load_cfg(args):
     cfg["args"] = args
 
     # Configs for finetuning mode
-    cfg_train["is_finetune"] = args.is_finetune
+    cfg_train["params"]["config"]["is_finetune"] = args.is_finetune
     if args.is_finetune:
-        cfg_train["pretrain_checkpoint"] = args.pretrain_checkpoint
+        cfg_train["params"]["config"]["pretrain_checkpoint"] = args.pretrain_checkpoint
 
     return cfg, cfg_train, logdir
 
@@ -245,7 +245,10 @@ def get_args(benchmark=False):
         {"name": "--is_finetune", "action": "store_true", "default": False,
             "help": "Whether to run in finetuning mode"},
         {"name": "--pretrain_checkpoint", "type": str, "default": "",
-            "help": "Path to the saved weights for the pretraining model."},]
+            "help": "Path to the saved weights for the pretraining model."},
+        {"name": "--wandb", "action": "store_true", "default": False,
+            "help": "Whether to use wandb for logging."},
+        ]
 
     if benchmark:
         custom_parameters += [{"name": "--num_proc", "type": int, "default": 1, "help": "Number of child processes to launch"},

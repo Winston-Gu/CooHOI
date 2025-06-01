@@ -58,7 +58,6 @@ params:
     learning_rate: 2e-5
     lr_schedule: constant
     score_to_win: 20000
-    max_epochs: 10000
     save_best_after: 50
     save_frequency: 50
     print_stats: True
@@ -90,8 +89,6 @@ params:
     task_reward_w: 0.5
     disc_reward_w: 0.5
 
-    record_hand_force_sensor: False
-    record_force_contact: False
-    record_sep_reward: True
+    max_epochs: 50000
 
     num_humanoids: 2
