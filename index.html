@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="CooHOI">
+  <meta name="keywords" content="Humanoid Robots, Character Animation, Human Object Interaction, Multi Agent Cooperation, Reinforcement Learning"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CooHOI</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+  <link rel="icon" type="image/x-icon" href="static/images/CooHOI.ico">
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script
+        src="https://app.rybbit.io/api/script.js"
+        data-site-id="1893"
+        defer
+    ></script>
+    <script src="https://webtracking.gao-jiawei.com/api/script.js" data-site-id="2410a3f24934"defer></script>
+</head>
+
+<body>
+  <section class="hero is-link is-fullheight video" style="overflow: hidden; position:relative;">
+    <div class="hero-video" style="height: 100%; width: 177.77777778vh; min-width: 100%;min-height: 56.25vw;">
+      <video playsinline autoplay muted loop style="opacity: 0.6;">
+        <source src=" ./resources/cover.mp4" type="video/mp4">
+      </video>
+    </div>
+    <!-- <div class="hero-video is-hidden-tablet is-inline-block-mobile"
+      style="height: 154.28571428vw; width: 100%; min-width:64.81481481vh;min-height:100%;">
+      <video playsinline autoplay muted loop >
+        <source src="./resources/cover.mp4" type="video/mp4">
+      </video>
+    </div> -->
+    <div class="overlay"></div>
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head is-hidden-mobile">
+      <header class="navbar">
+        <div class="container is-size-5">
+          <div class="navbar-menu">
+            <div class="navbar-end">
+              <a class="navbar-item pl-4 pr-4" href="./resources/CooHOI_v1014.pdf">
+                <span class="icon" style="margin-right:5px;">
+                  <img src="./static/images/pdf.svg" alt="PDF" />
+                </span>
+                <span>Paper</span>
+              </a>
+              <a class="navbar-item  pl-4 pr-4" href="https://arxiv.org/abs/2406.14558v2">
+                <span class="icon" style="margin-right:5px;">
+                  <img src="./static/images/arxiv.svg" alt="ArXiv" />
+                </span>
+                <span>arXiv</span> </a>
+              <a href="https://www.youtube.com/watch?v=0pO8FhMP9Ac" class="navbar-item  pl-4 pr-4">
+                <span class="icon" style="margin-right:5px;">
+                  <img src="./static/images/youtube.svg" alt="Youtube" />
+                </span>
+                <span>Video</span> </a>
+              <span class="navbar-item  pl-4 pr-4">
+                <a href="https://github.com/Winston-Gu/CooHOI" class="button is-large">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <!-- Hero content: will be in the middle -->
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <h1 class="title is-1 publication-title is-size-1-mobile" style="font-size: 15rem;">
+              CooHOI
+            </h1>
+            <h1 class="title is-1 publication-subtitle is-size-4-mobile" style="font-size: 3rem;">
+              Learning Cooperative Human-Object Interaction <br> with Manipulated Object Dynamics
+            </h1>
+            
+            <!-- <span class="author-block publication-authors" style="font-size: 1.5rem;">
+              <a href="https://winston-gu.github.io/" target="_blank">Jiawei Gao</a>*&nbsp;&nbsp;
+              <a href="https://scholar.google.com/citations?user=BF-xXsIAAAAJ" target="_blank">Ziqin Wang</a>*&nbsp;&nbsp;
+              <a href="https://x.com/zeqi_xiao/" target="_blank">Zeqi Xiao</a>&nbsp;&nbsp;
+              <a href="https://wangjingbo1219.github.io/" target="_blank">Jingbo Wang</a>&nbsp;&nbsp;
+              <a href="https://tai-wang.github.io/" target="_blank">Tai Wang</a>&nbsp;&nbsp;
+              <br>
+              <a href="https://www.jinkuncao.com/" target="_blank">Jinkun Cao</a>&nbsp;&nbsp;
+              <a href="https://www.xlhu.cn/" target="_blank">Xiaolin Hu</a>&nbsp;&nbsp;
+              <a href="https://sites.google.com/site/siliuhome/" target="_blank">Si Liu</a>&nbsp;&nbsp;
+              <a href="https://jifengdai.org/" target="_blank">Jifeng Dai</a>&nbsp;&nbsp;
+              <a href="https://oceanpang.github.io/" target="_blank">Jiangmiao Pang</a>&#8224;&nbsp;&nbsp;
+              <br>*Equal Contributions
+            </span> -->
+            <h1 class="subtitle is-1 publication-awards is-size-4-mobile" style="font-size: 3.5rem; margin-top: 2rem;">
+              NeurIPS 2024 Spotlight
+            </h1>
+          </div>
+
+        </div>
+
+        <!-- Hero footer: will stick at the bottom -->
+      </section>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2406.14558v2" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="ai ai-arxiv"></i>
+                </span>
+                <span>arXiv</span>
+                </a>
+              </span>
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="./resources/CooHOI_v1014.pdf"
+                  class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=0pO8FhMP9Ac"
+                  class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- twitter Link. -->
+              <span class="link-block">
+                <a href="https://x.com/WinstonGu_/status/1848393460849799439"
+                    class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fab fa-twitter"></i>
+                  </span>
+                  <span>Summary</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Winston-Gu/CooHOI" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+              <!-- <span class="link-block">
+                <a href="./cn.html" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-language"></i>
+                  </span>
+                  <span>中文</span>
+                </a>
+              </span> -->
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser Image-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+    <h2 class="title is-2" style="text-align: center;">Our Approach</h2>
+    <img src="static/images/teaser.jpg"/>
+    <h2 class="subtitle">
+      <b>Our framework empowers physically simulated characters to execute multi-agent human-object interaction (HOI) tasks with naturalness and precision.</b>
+    </h2>
+    <img src="./resources/method.png"/>
+    <h2 class="subtitle ">
+    <b>Our framework employs a two-phase learning paradigm.
+        In the first phase, depicted on the left, we train single-agent carrying skills using the AMP framework.
+        In the second phase, we transfer these single-agent skills to a cooperative context.
+        Notably, we use the dynamics of the object as feedback information and implicit communication channel, as illustrated by the bounding box in the figures.</b>
+    </h2>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser Video-->
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full-width is-centered has-text-centered">
+        <h2 class="title is-2" style="text-align: center;" id="method-video" >Demos</h2>
+        <div class="column is-full-width is-centered has-text-centered">
+          <video controls autoplay loop muted playsinline src="./resources/cover.mp4" poster="resources/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Single Agent Skills</h2>
+    <div class="columns is-centered">
+      <div class="column is-centered has-text-centered">
+        <video controls autoplay loop muted playsinline src="resources/single/armchair.mp4" poster="resources/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-centered has-text-centered">
+        <video controls autoplay loop muted playsinline src="resources/single/table.mp4" poster="resources/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+      <div class="column is-centered has-text-centered">
+        <video controls autoplay loop muted playsinline src="resources/single/highstool.mp4" poster="resources/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Two Agents Skills</h2>
+    <div class="columns is-centered">
+      <div class="column is-centered has-text-centered">
+        <video controls autoplay loop muted playsinline src="resources/two/long_box.mp4" poster="resources/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-centered has-text-centered">
+        <video controls autoplay loop muted playsinline src="resources/two/heavy_sofa_1.mp4" poster="resources/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+      <div class="column is-centered has-text-centered">
+        <video controls autoplay loop muted playsinline src="resources/two/heavy_sofa_2.mp4" poster="resources/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Multi Agents Skills</h2>
+    <div class="columns is-centered">
+      <div class="column is-centered has-text-centered">
+        <video controls autoplay loop muted playsinline src="resources/four/four_ground.mp4" poster="resources/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--BibTex citation -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{gao2024coohoi,
+      title={CooHOI: Learning Cooperative Human-Object Interaction with Manipulated Object Dynamics},
+      author={Gao, Jiawei and Wang, Ziqin and Xiao, Zeqi and Wang, Jingbo and Wang, Tai and Cao, Jinkun and Hu, Xiaolin and Liu, Si and Dai, Jifeng and Pang, Jiangmiao},
+      journal={arXiv preprint arXiv:2406.14558},
+      year={2024}
+}</code></pre>
+  </div>
+</section>
+<!--End BibTex citation -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template modified from <a href="https://lecar-lab.github.io/anycar/">AnyCar-to-Anywhere</a>, <a href="https://umi-on-legs.github.io/">UMI-On-Legs</a>,
+            <a href="https://www.cs.columbia.edu/~huy/scalingup/">Scaling Up Distilling Down</a>, and <a href="https://nerfies.github.io/">NeRFies</a>.
+          </p>
+          <p>
+            This website is licensed under a <a rel="license"
+              href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+              Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow and modify the <a
+              href="https://github.com/nerfies/nerfies.github.io">source
+              code</a> of this website as long as
+            you link back to the <a href="https://gao-jiawei.com/Research/CooHOI/">CooHOI</a> page in the footer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+<!-- End of Statcounter Code -->
+
+</body>
+</html>
