@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[[Website]](https://gao-jiawei.com/Research/CooHOI/)
+[[Website]](http://gao-jiawei.com/CooHOI/)
 [[Arxiv]](https://arxiv.org/abs/2406.14558)
 
 </div>
@@ -189,9 +189,12 @@ If you use our code in your work, please consider citing our work:
 
 ```bibtex
 @inproceedings{gao2024coohoi,
+ title = {CooHOI: Learning Cooperative Human-Object Interaction with Manipulated Object Dynamics},
  author = {Gao, Jiawei and Wang, Ziqin and Xiao, Zeqi and Wang, Jingbo and Wang, Tai and Cao, Jinkun and Hu, Xiaolin and Liu, Si and Dai, Jifeng and Pang, Jiangmiao},
  booktitle = {Advances in Neural Information Processing Systems},
- title = {CooHOI: Learning Cooperative Human-Object Interaction with Manipulated Object Dynamics},
+ doi = {10.52202/079017-2532},
+ pages = {79741--79763},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2024/file/918b9487f8ea4661e8ba5a02b2126658-Paper-Conference.pdf},
  year = {2024}
 }
 ```
